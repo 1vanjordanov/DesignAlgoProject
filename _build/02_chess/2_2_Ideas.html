@@ -1,0 +1,171 @@
+---
+redirect_from:
+  - "/02-chess/2-2-ideas"
+interact_link: content/02_chess/2_2_Ideas.ipynb
+kernel_name: python3
+kernel_path: content/02_chess
+has_widgets: false
+title: |-
+  Идеја за решавање
+pagenum: 5
+prev_page:
+  url: /02_chess/2_1_Description.html
+next_page:
+  url: /02_chess/2_3_PythonSolution.html
+suffix: .ipynb
+search: x y n bfs br gorelevo goredesno levo desno dolulevo doludesno o gl gd l d dl dd isvalid v e ve frac cdot
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Идеја за решавање</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Како што вели текстот, пијаниот коњ има 6 различни акции. Идејата е да се изгради граф, каде темиња ќе бидат позициите на коњот, а ребра ќе бидат валидните акции, но нема да ги чувам сите позиции на шаховската табла, туку графот ќе го градам имплицитно, односно ќе ги чувам само полињата на коњот кои му се достапни преку неговите акции во моментална состојба, така, наместо да чувам $N^2$ позиции, во најлош случај ќе чувам 6 позиции.<br>
+Валидните акции на пијаниот коњ се</p>
+<ul>
+<li><strong>GL</strong> - GoreLevo</li>
+<li><strong>GD</strong> - GoreDesno</li>
+<li><strong>L</strong> - Levo</li>
+<li><strong>D</strong> - Desno</li>
+<li><strong>DL</strong> - DoluLevo</li>
+<li><strong>DD</strong> - DoluDesno</li>
+</ul>
+<p>Според слика1 тие заменети во координатен систем би изгледале:</p>
+<ul>
+<li>$(-2,-1)$ - GoreLevo</li>
+<li>$(-2,+1)$ - GoreDesno</li>
+<li>$(0,-2)$ - Levo</li>
+<li>$(0, +2)$ - Desno</li>
+<li>$(+2,-1)$ - DoluLevo</li>
+<li>$(+2,+1)$ - DoluDesno</li>
+</ul>
+<p>Тоа значи дека од одредена состојба на пијаниот коњ, $(x,y)$, тој може да се движи на следниот начин:</p>
+<ul>
+<li>$(x - 2, y - 1)$ </li>
+<li>$(x - 2, y + 1)$</li>
+<li>$(x, y - 2)$ </li>
+<li>$(x, y + 2)$</li>
+<li>$(x + 2, y - 1)$ </li>
+<li>$(x + 2, y + 1)$</li>
+</ul>
+<p>Дополнително треба да се запазат почетните ограничувања дадени во текстот на задачата, со тоа што $x$ и $y$ не смеат да излегуваат надвор од шаховската табла, па пред да се изврши некоја од 6-те акции на коњот, мора да се провери дали тој потег е валиден или не. <br>
+Ова може многу лесно да се реализира со функцијата <em>isValid(x,y,n)</em>.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Откако ќе се запазат сите ограничувања, може да го применам <em>BFS</em> алгоритмот.</p>
+<h4 id="&#1040;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1072;&#1084;">&#1040;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1072;&#1084;<a class="anchor-link" href="#&#1040;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1072;&#1084;"> </a></h4><p>Се креира редица која на почеток ќе ја има почетната состојба на пијаниот коњ. Дополнително се креира листа на посетени позиции. За почетната позиција се проверуваат сите 6акции, и за секоја се проверува дали е валидна или не, доколку е валидна се внесува во редицата и почетната состојба се внесува во листата на посетени позиции. Ова се повторува сѐ додека не се стигне до крајната позиција, штом се стигне се печати должината на патот. Доколку редицата е празна, а листата на посетени позиции е 0, до крајната позиција не може да се стигне, па затоа се печати -1.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;0&#39;</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;ST&#39;</span><span class="p">)]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">xi</span><span class="p">,</span><span class="n">yj</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">isValid</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="n">yj</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">xi</span><span class="p">][</span><span class="n">yj</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">xi</span><span class="p">][</span><span class="n">yj</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+                <span class="k">if</span> <span class="n">xi</span><span class="o">==</span><span class="n">x2</span> <span class="ow">and</span> <span class="n">yj</span><span class="o">==</span><span class="n">y2</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">xi</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">yj</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;GL&#39;</span><span class="p">))</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">xi</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">yj</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;GD&#39;</span><span class="p">))</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">xi</span><span class="p">,</span><span class="n">yj</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">))</span>      <span class="c1"># bfs to find dest point</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">xi</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">yj</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;DD&#39;</span><span class="p">))</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">xi</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">yj</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;DL&#39;</span><span class="p">))</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">xi</span><span class="p">,</span><span class="n">yj</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">visited</span><span class="p">[</span><span class="n">ei</span><span class="p">][</span><span class="n">ej</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>     <span class="c1"># dest point cant be reached</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-1&#39;</span><span class="p">)</span>
+            
+<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="c1">#q = [(x1,y1,0,&#39;ST&#39;)]</span>
+<span class="n">bfs</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Комплексноста на <em>BFS</em> алгоритамот зависи од бројот на темиња (<em>V</em>) и од бројот на ребра (<em>E</em>) и се пресметува како</p>
+<blockquote><p>$О(V+E)$</p>
+</blockquote>
+<p>Во најлош случај <em>BFS</em> ќе треба да ги измине сите темиња, односно ќе треба да ја измине цела табла која е со големина $N x N$, а бројот на ребра во најлош случај е $\frac{6N^2}{2}$ па оттука следува дека комплексноста на овој алгоритам е</p>
+<blockquote><p>$O(N^2 + 3\cdot N^2) = O(N^2)$</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

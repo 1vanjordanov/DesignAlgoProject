@@ -1,0 +1,198 @@
+---
+redirect_from:
+  - "/01-rubik/1-3-pythonsolution"
+interact_link: content/01_rubik/1_3_PythonSolution.ipynb
+kernel_name: python3
+kernel_path: content/01_rubik
+has_widgets: false
+title: |-
+  Споредба на алгоритми
+pagenum: 3
+prev_page:
+  url: /01_rubik/1_2_Ideas.html
+next_page:
+  url: /02_chess/2_1_Description.html
+suffix: .ipynb
+search: python li fi f shortest path execution sec ui l u test start end optimized shortestpathoptmized shortestpath e none hr
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Споредба на алгоритми</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Test-:-1">Test : 1<a class="anchor-link" href="#Test-:-1"> </a></h3><div class="highlight"><pre><span></span><span class="n">Start</span><span class="p">:</span>  <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">End</span><span class="p">:</span>  <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+<p><strong><em>Shortest Path Optimized</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path_optmized</span><span class="p">()</span> <span class="p">:</span> <span class="mf">0.000434875488281</span> <span class="n">sec</span>
+</pre></div>
+<p><strong><em>Shortest Path</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">4</span>    
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path</span><span class="p">():</span> <span class="mf">0.00262808799744</span> <span class="n">sec</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Test-:-2">Test : 2<a class="anchor-link" href="#Test-:-2"> </a></h3><div class="highlight"><pre><span></span><span class="n">Start</span><span class="p">:</span>  <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">End</span><span class="p">:</span>  <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+<p><strong><em>Shortest Path Optimized</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path_optmized</span><span class="p">()</span> <span class="p">:</span> <span class="mf">6.50882720947e-05</span> <span class="n">sec</span>
+</pre></div>
+<p><strong><em>Shortest Path</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path</span><span class="p">():</span> <span class="mf">2.90870666504e-05</span> <span class="n">sec</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Test-:-3">Test : 3<a class="anchor-link" href="#Test-:-3"> </a></h3><div class="highlight"><pre><span></span><span class="n">Start</span><span class="p">:</span>  <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">End</span><span class="p">:</span>  <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+<p><strong><em>Shortest Path Optimized</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">14</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path_optmized</span><span class="p">()</span> <span class="p">:</span> <span class="mf">0.125272989273</span> <span class="n">sec</span>
+</pre></div>
+<p><strong><em>Shortest Path</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">14</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path</span><span class="p">():</span> <span class="mf">57.1884469986</span> <span class="n">sec</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Test-:-4">Test : 4<a class="anchor-link" href="#Test-:-4"> </a></h3><div class="highlight"><pre><span></span><span class="n">Start</span><span class="p">:</span>  <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">End</span><span class="p">:</span>  <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+<p><strong><em>Shortest Path Optimized</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Fi&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">9</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path_optmized</span><span class="p">()</span> <span class="p">:</span> <span class="mf">0.00584316253662</span> <span class="n">sec</span>
+</pre></div>
+<p><strong><em>Shortest Path</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Fi&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;Fi&#39;</span><span class="p">]</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">9</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path</span><span class="p">():</span> <span class="mf">1.09099912643</span> <span class="n">sec</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Test-:-5">Test : 5<a class="anchor-link" href="#Test-:-5"> </a></h3><div class="highlight"><pre><span></span><span class="n">Start</span><span class="p">:</span>  <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">End</span><span class="p">:</span>  <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+</pre></div>
+<p><strong><em>Shortest Path Optimized</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path_optmized</span><span class="p">()</span> <span class="p">:</span> <span class="mf">125.200236797</span> <span class="n">sec</span>
+</pre></div>
+<p><strong><em>Shortest Path</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">Множество</span> <span class="n">акции</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">Должина</span> <span class="n">на</span> <span class="n">пат</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Execution</span> <span class="n">Time</span> <span class="n">Of</span> <span class="n">shortest_path</span><span class="p">():</span> <span class="mi">1</span> <span class="n">hr</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

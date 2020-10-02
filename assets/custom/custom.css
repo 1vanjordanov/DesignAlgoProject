@@ -1,0 +1,66 @@
+/* custom CSS */
+
+body {
+    font-family: Content-font, Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 150;
+    line-heigth: 26px:
+	text-rendering: optimizelegibility;
+}
+
+.left {
+    margin: 15px 25px 10px !important;
+    float: center !important;
+}
+
+.c-textbook__sidebar {
+/* 	left: 7vh; */
+	background-color: rgb(196 220 196);
+}
+
+.c-page__nav__prev, .c-page__nav__next {
+	border: 1px solid rgb(196 220 196);
+	background-color: rgb(196 220 196);
+}
+
+.c-textbook__footer {
+	margin-left: 15%;
+	width: 95%;
+}
+
+aside.sidebar__right{
+
+    visibility: hidden !important;
+}
+
+.c-topbar .topbar-right-button{
+
+    visibility: hidden !important;
+}
+
+
+.c-textbook__content{
+    max-width: 1100px !important;
+    width:110% !important;
+    margin-left: 5%;
+    margin-top:-1%;
+}
+
+a.c-page__nav__next, a.c-page__nav__prev {
+    color: black;
+    text-decoration: none;
+}
+
+div.inner_cell>div>div>pre, div.inner_cell>div>pre div.output_wrapper pre {
+
+    padding: 2px;
+
+}
+
+
+
+
+
+
+
+

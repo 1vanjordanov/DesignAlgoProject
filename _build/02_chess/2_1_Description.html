@@ -1,0 +1,154 @@
+---
+redirect_from:
+  - "/02-chess/2-1-description"
+interact_link: content/02_chess/2_1_Description.ipynb
+kernel_name: python3
+kernel_path: content/02_chess
+has_widgets: false
+title: |-
+  Пијан коњ
+pagenum: 4
+prev_page:
+  url: /01_rubik/1_3_PythonSolution.html
+next_page:
+  url: /02_chess/2_2_Ideas.html
+suffix: .ipynb
+search: br u n p center x y code hr python gl align img src images k png style width alt centerfigcaptionb b figcaption dl dd leq ucodeinput ucodeoutput l times j bfs gorelevo gd goredesno levo d desno dolulevo doludesno e neq
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Пијан коњ</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>За втор проблем се одлучив да решам задача каде ќе го применам <strong>BFS</strong> алгоритмот во шаховски проблем. За решавање го користам програмскиот јазик <em>Python</em>.</p>
+<h3 id="&#1054;&#1087;&#1080;&#1089;-&#1085;&#1072;-&#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;">&#1054;&#1087;&#1080;&#1089; &#1085;&#1072; &#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;<a class="anchor-link" href="#&#1054;&#1087;&#1080;&#1089;-&#1085;&#1072;-&#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;"> </a></h3><p>Во оваа специјална верзија на шах, вметнуваме нови фигури со уникатни потези. Една од најмоќните фигури во оваа верзија е пијаниот коњ. 
+<br>
+Пијаниот коњ може да се движи на шест различни позиции од моменталната позиции.<br>
+Позициите на коњот се следните:
+<br></p>
+<ul>
+<li><strong>GL</strong> - GoreLevo</li>
+<li><strong>GD</strong> - GoreDesno</li>
+<li><strong>L</strong> - Levo</li>
+<li><strong>D</strong> - Desno</li>
+<li><strong>DL</strong> - DoluLevo</li>
+<li><strong>DD</strong> - DoluDesno</li>
+</ul>
+<p><p align="center">
+<img src="images\k1.png" style="width:35%;" alt="Валидни потези">
+<br>
+    <center><figcaption><b>Слика 1:</b> Дозволени акции на пијаниот коњ</figcaption></center>
+</p>
+<br>
+Шаховската табла е со големина $N \times N$. Секоја ќелија од таблата е индексирана како $(i, j)$, каде $i$ е бројот на редици, а $j$ е бројот на колони и индексирањето почнува од $0$. Позицијата $(0,0)$ е горниот ќош лево, а пак $(N-1, N-1)$ е во долниот ќош десно.
+<br></p>
+<p>Помогнете му на пијаниот коњ да стигне до посакуваната позиција, притоа бројот на акции да биде најмал што може.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#1042;&#1083;&#1077;&#1079;-&#1080;-&#1080;&#1079;&#1083;&#1077;&#1079;-&#1079;&#1072;-&#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;">&#1042;&#1083;&#1077;&#1079; &#1080; &#1080;&#1079;&#1083;&#1077;&#1079; &#1079;&#1072; &#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;<a class="anchor-link" href="#&#1042;&#1083;&#1077;&#1079;-&#1080;-&#1080;&#1079;&#1083;&#1077;&#1079;-&#1079;&#1072;-&#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;"> </a></h1><p><strong>Влез:</strong> Во првата линија е дадена големината на таблата, односно $N$ (т.е. $N\times N$). Во втората линија се дадени $x_1, y_1, x_2, y_2$, каде $(x_1,y_1)$ e <u>почетната</u> позиција на коњот, а пак $(x_2,y_2)$ е <u>крајната</u> позиција.
+<br></p>
+<p><strong>Излез:</strong> На стандарден излез треба да се испечати должината на патот помеѓу почетната и крајната позиција, доколку тој пат не постои, треба да се испечати -1.</p>
+<h2 id="&#1054;&#1075;&#1088;&#1072;&#1085;&#1080;&#1095;&#1091;&#1074;&#1072;&#1114;&#1072;:">&#1054;&#1075;&#1088;&#1072;&#1085;&#1080;&#1095;&#1091;&#1074;&#1072;&#1114;&#1072;:<a class="anchor-link" href="#&#1054;&#1075;&#1088;&#1072;&#1085;&#1080;&#1095;&#1091;&#1074;&#1072;&#1114;&#1072;:"> </a></h2><ol>
+<li>$5 \leq N \leq 200$</li>
+<li>$0 \leq x_1,y_1,x_2,y_2 &lt; N$</li>
+<li>почетната и крајната дестинација мора да се различни $(x_1,y_1)\neq (x_2,y_2)$</li>
+</ol>
+<p><strong><em>Пример1</em></strong>:</p>
+<p><u><code>Input:</code></u></p>
+<div class="highlight"><pre><span></span><span class="mi">7</span>
+<span class="mi">6</span> <span class="mi">6</span> <span class="mi">0</span> <span class="mi">1</span>
+</pre></div>
+<p><u><code>Output:</code></u>
+4</p>
+<hr>
+
+<p><strong><em>Пример2</em></strong>:</p>
+<p><u><code>Input:</code></u></p>
+<div class="highlight"><pre><span></span><span class="mi">7</span>
+<span class="mi">0</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">3</span>
+</pre></div>
+<p><u><code>Output:</code></u>
+2</p>
+<hr>
+
+<p><strong><em>Пример3</em></strong>:</p>
+<p><u><code>Input:</code></u></p>
+<div class="highlight"><pre><span></span><span class="mi">6</span>
+<span class="mi">5</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">5</span>
+</pre></div>
+<p><u><code>Output:</code></u>
+-1</p>
+<hr>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#1054;&#1073;&#1112;&#1072;&#1089;&#1085;&#1091;&#1074;&#1072;&#1114;&#1077;-&#1085;&#1072;-&#1090;&#1077;&#1089;&#1090;-&#1087;&#1088;&#1080;&#1084;&#1077;&#1088;&#1080;">&#1054;&#1073;&#1112;&#1072;&#1089;&#1085;&#1091;&#1074;&#1072;&#1114;&#1077; &#1085;&#1072; &#1090;&#1077;&#1089;&#1090;-&#1087;&#1088;&#1080;&#1084;&#1077;&#1088;&#1080;<a class="anchor-link" href="#&#1054;&#1073;&#1112;&#1072;&#1089;&#1085;&#1091;&#1074;&#1072;&#1114;&#1077;-&#1085;&#1072;-&#1090;&#1077;&#1089;&#1090;-&#1087;&#1088;&#1080;&#1084;&#1077;&#1088;&#1080;"> </a></h2><p><strong><em>Пример1:</em></strong> 
+<br></p>
+<p><p align="center">
+<img src="images\k2.png" style="width:30%;" alt="Тест пример 1">
+<br>
+    <center><figcaption><b>Слика 2:</b> Тест пример 1</figcaption></center>
+</p>
+<br>
+Според сликата се гледа дека должината на патот ќе биде 4, а извршените акции на пијаниот коњ се GL GL GL и L во тој редослед.<hr></p>
+<p><strong><em>Пример2:</em></strong> 
+<br></p>
+<p><p align="center">
+<img src="images\k3.png" style="width:30%;" alt="Тест пример 2">
+<br>
+    <center><figcaption><b>Слика 3:</b> Тест пример 2</figcaption></center>
+</p>
+<br>
+Коњот почнува од $(0,3)$ и до $(4,3)$ може да стигне на два начина, или користејќи DL па DD или пак користејќи прво DD па потоа DL, должината на овие два начина е еднаква, па затоа небитно е дали ќе се оди преку првиот или преку вториот пат, одговорот ќе е секогаш 2.</p>
+<hr>
+
+<p><strong><em>Пример3:</em></strong> 
+<br></p>
+<p><p align="center">
+<img src="images\k4.png" style="width:30%;" alt="Тест пример 3">
+<br>
+    <center><figcaption><b>Слика 4:</b> Тест пример 3</figcaption></center>
+</p>
+<br>
+Излезот е -1 бидејќи е невозможно да се стигне од $(5,1)$ до $(0,5)$</p>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

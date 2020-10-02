@@ -1,0 +1,399 @@
+---
+redirect_from:
+  - "/01-rubik/1-2-ideas"
+interact_link: content/01_rubik/1_2_Ideas.ipynb
+kernel_name: python3
+kernel_path: content/01_rubik
+has_widgets: false
+title: |-
+  Идеи за решавање
+pagenum: 2
+prev_page:
+  url: /01_rubik/1_1_Description.html
+next_page:
+  url: /01_rubik/1_3_PythonSolution.html
+suffix: .ipynb
+search: cubelet face br u span bfs b clockwise style code width p center front left color counter back right flu python d fur fdl frd bul bru bld bdr ufl rotated align img src images centerfigcaptionb figcaption white luf urf rfu dlf lfd rdf dfr ulb lbu rub ubr ldb dbl drb rbd cubelets rgw o td cdot red green f l upper greenu perminverse jpg prv vtor rwb tret ryg rby petti owg shesti obw ogy osmi oyb redred greengreen rgb gwr wrg hr s pi branching factor table gif frac ram fly icubelet yellow orange blue cetvrt sdemi
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Идеи за решавање</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#1055;&#1088;&#1074;&#1072;-&#1080;&#1076;&#1077;&#1112;&#1072;">&#1055;&#1088;&#1074;&#1072; &#1080;&#1076;&#1077;&#1112;&#1072;<a class="anchor-link" href="#&#1055;&#1088;&#1074;&#1072;-&#1080;&#1076;&#1077;&#1112;&#1072;"> </a></h3><p>Да се креира граф кој за темиња ќе ги содржи сите можни комбинации на коцката, а за ребра ќе ги има сите валидни движења на страните. Бидејќи овој граф е нетежински и ненасочен, најдобар алгоритам за наоѓање на пат во ваков граф е <em>bfs</em>.
+<br></p>
+<p>Да беше ова обичен граф оваа идеја ќе успееше, но за дадениот граф постојат <strong><em>$24!$</em></strong> комбинации. Иако некои комбинации се невозможни бидејќи не смееме да ја растуриме коцката на помали коцки за да ја решиме, сепак бројот на комбинации е преголем ($\frac{8! \cdot 3^8}{24}$) и нема да го собере во <em>RAM</em>-от на еден просечен компјутер, па затоа ова решение отпаѓа.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#1042;&#1090;&#1086;&#1088;&#1072;-&#1080;&#1076;&#1077;&#1112;&#1072;">&#1042;&#1090;&#1086;&#1088;&#1072; &#1080;&#1076;&#1077;&#1112;&#1072;<a class="anchor-link" href="#&#1042;&#1090;&#1086;&#1088;&#1072;-&#1080;&#1076;&#1077;&#1112;&#1072;"> </a></h3><p>Графот ќе биде ист како во првата идеја, односно комбинации на коцката како <u>темиња</u> и валидни движења за <u>ребра</u>, но сега графот ќе го креирам имплицитно, односно ќе ги генерирам темињата и ребрата што ги посетува <em>bfs</em> “on-the-fly”. 
+<br></p>
+<p>Начинот на којшто ќе ја решам рубиковата коцка е следниот: <br>
+Идејата е да 'креирам' две нови коцки со по 24 квадрата, односно 8 cubelets. Првата коцка ќе ги чува боите на квадратите, а втората ќе ги чува позициите. <br></p>
+<p>Првата коцка ќе изгледа вака: <br></p>
+<p><p width="100%" align="center">
+    <img src="images\cubelets.jpg" width="33%">
+    <center><figcaption><b>Слика 1:</b> Објаснување на бои на еден <i>cubelet</i></figcaption></center>
+</p>
+<br></p>
+<p>Секој квадрат ќе има име според првата буква од неговата боја, а секој <em>cubelet</em> ќе има име според трите негови бои. Боите ќе бидат според текстот на задачата, односно Red, Green, White, Yellow, Orange, Blue.</p>
+<div class="highlight"><pre><span></span><span class="n">prv</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">RGW</span>
+<span class="n">vtor</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">RWB</span>
+<span class="n">tret</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">RYG</span>
+<span class="n">cetvrt</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">RBY</span>
+<span class="n">petti</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">OWG</span>
+<span class="n">shesti</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">OBW</span>
+<span class="n">sdemi</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">OGY</span>
+<span class="n">osmi</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">OYB</span>
+</pre></div>
+<p><br></p>
+<p>Пример, првиот <em>cubelet</em> (<strong>RGW</strong>) е именуван според неговите 3 бои (<span style="color:red;">red</span>, <span style="color:green;">green</span>, <span style="color:rgb(220,220,220);">white</span>) и составен е од 3 квадрата соодветно.
+Црвениот квадрат ќе има име <u><span style="color:red;">red</span>-green-white</u> односно rgw. Имено, зелениот квадрат ќе биде со име gwr (<span style="color:green;">green</span>-white-red) и белиот квадрат ќе има име wrg (<span style="color:rgb(220,220,220);">white</span>-red-green) итн. за останатите квадрати.</p>
+<hr>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Втората коцка ќе изгледа вака <br></p>
+<p><p width="100%" align="center">
+    <img src="images\cubelets2.jpg" width="33%">
+    <center><figcaption><b>Слика 2:</b> Објаснување на позиции</figcaption></center>
+</p> 
+<br></p>
+<p>Исто како и со првата коцка, секој <em>cubelet</em> ќе биде именуван според неговата позиција, а секој квадрат ќе биде именуван според првата буква од неговата позиција. Позициите ќе бидат според текстот од задачата, односно <strong>Front, Back, Up, Down, Left, Right</strong> или <strong><em>F, B, U, D, L, R</em></strong> за пократко.
+<br></p>
+<div class="highlight"><pre><span></span><span class="n">prv</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">FLU</span>
+<span class="n">vtor</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">FUR</span>
+<span class="n">tret</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">FDL</span>
+<span class="n">chetvrt</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">FRD</span>
+<span class="n">petti</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">BUL</span>
+<span class="n">shesti</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">BRU</span>
+<span class="n">sedmi</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">BLD</span>
+<span class="n">osmi</span><span class="o">-</span><span class="n">cubelet</span> <span class="o">=</span> <span class="n">BDR</span>
+</pre></div>
+<p>Како што напоменав, секоj <em>cubelet</em> е именуван според позицијата на коцката. <br> Првиот <em>cubelet</em> (<strong>FLU</strong>) односно Front-Left-Upper содржи 3 квадрата: <u><b>f</b></u>lu, <u><b>l</b></u>fu, <u><b>u</b></u>fl соодветно. Истото важи и за останатите.
+<br></p>
+<p>Конечната конфигурација се добива ако ја мапирам првата коцка на втората коцка, односно, 24-те квадрата со боја ги мапирам на 24-те квадрата со позиции.
+<br></p>
+<p><p width="100%" align="center">
+    <img src="images\cubelets3.png" width="50%">
+    <center><figcaption><b>Слика 3:</b> Конечна конфигурација </figcaption></center>
+</p>
+<br></p>
+<div class="highlight"><pre><span></span><span class="n">rgw</span> <span class="o">=</span> <span class="n">flu</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># (прв cubelet; front face)</span>
+<span class="n">gwr</span> <span class="o">=</span> <span class="n">luf</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># (прв cubelet; left face)</span>
+<span class="n">wrg</span> <span class="o">=</span> <span class="n">ufl</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># (прв cubelet; up face)</span>
+<span class="n">rwb</span> <span class="o">=</span> <span class="n">fur</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># (втор cubelet; front face) </span>
+<span class="n">wbr</span> <span class="o">=</span> <span class="n">urf</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># (втор cubelet; up face) </span>
+<span class="n">brw</span> <span class="o">=</span> <span class="n">rfu</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># (втор cubelet; right face)</span>
+<span class="n">ryg</span> <span class="o">=</span> <span class="n">fdl</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># (трет cubelet; front face) </span>
+<span class="n">ygr</span> <span class="o">=</span> <span class="n">dlf</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># (трет cubelet; down face)</span>
+<span class="n">gry</span> <span class="o">=</span> <span class="n">lfd</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># (трет cubelet; left face)</span>
+<span class="n">rby</span> <span class="o">=</span> <span class="n">frd</span> <span class="o">=</span> <span class="mi">9</span> <span class="c1"># (четврт cubelet; front face) </span>
+<span class="n">byr</span> <span class="o">=</span> <span class="n">rdf</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># (четврт cubelet; right face) </span>
+<span class="n">yrb</span> <span class="o">=</span> <span class="n">dfr</span> <span class="o">=</span> <span class="mi">11</span> <span class="c1"># (четврт cubelet; down face)</span>
+<span class="n">owg</span> <span class="o">=</span> <span class="n">bul</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># (петти cubelet; back face) </span>
+<span class="n">wgo</span> <span class="o">=</span> <span class="n">ulb</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># (петти cubelet; up face) </span>
+<span class="n">gow</span> <span class="o">=</span> <span class="n">lbu</span> <span class="o">=</span> <span class="mi">14</span> <span class="c1"># (петти cubelet; left face)</span>
+<span class="n">obw</span> <span class="o">=</span> <span class="n">bru</span> <span class="o">=</span> <span class="mi">15</span> <span class="c1"># (шести cubelet; back face) </span>
+<span class="n">bwo</span> <span class="o">=</span> <span class="n">rub</span> <span class="o">=</span> <span class="mi">16</span> <span class="c1"># (шести cubelet; right face) </span>
+<span class="n">wob</span> <span class="o">=</span> <span class="n">ubr</span> <span class="o">=</span> <span class="mi">17</span> <span class="c1"># (шести cubelet; up face)</span>
+<span class="n">ogy</span> <span class="o">=</span> <span class="n">bld</span> <span class="o">=</span> <span class="mi">18</span> <span class="c1"># (седми cubelet; back face) </span>
+<span class="n">gyo</span> <span class="o">=</span> <span class="n">ldb</span> <span class="o">=</span> <span class="mi">19</span> <span class="c1"># (седми cubelet; left face) </span>
+<span class="n">yog</span> <span class="o">=</span> <span class="n">dbl</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># (седми cubelet; down face)</span>
+<span class="n">oyb</span> <span class="o">=</span> <span class="n">bdr</span> <span class="o">=</span> <span class="mi">21</span> <span class="c1"># (осми cubelet; back face) </span>
+<span class="n">ybo</span> <span class="o">=</span> <span class="n">drb</span> <span class="o">=</span> <span class="mi">22</span> <span class="c1"># (осми cubelet; down face) </span>
+<span class="n">boy</span> <span class="o">=</span> <span class="n">rbd</span> <span class="o">=</span> <span class="mi">23</span> <span class="c1"># (осми cubelet; right face)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="&#1044;&#1074;&#1080;&#1078;&#1077;&#1114;&#1072;-&#1085;&#1072;-&#1089;&#1090;&#1088;&#1072;&#1085;&#1072;">&#1044;&#1074;&#1080;&#1078;&#1077;&#1114;&#1072; &#1085;&#1072; &#1089;&#1090;&#1088;&#1072;&#1085;&#1072;<a class="anchor-link" href="#&#1044;&#1074;&#1080;&#1078;&#1077;&#1114;&#1072;-&#1085;&#1072;-&#1089;&#1090;&#1088;&#1072;&#1085;&#1072;"> </a></h4><p>По направеното мапирање погоре, новодобиената комбинација е следната
+<br></p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">flu</span><span class="p">,</span> <span class="n">luf</span><span class="p">,</span> <span class="n">ufl</span><span class="p">,</span> <span class="n">fur</span><span class="p">,</span> <span class="n">urf</span><span class="p">,</span> <span class="n">rfu</span><span class="p">,</span> <span class="n">fdl</span><span class="p">,</span> <span class="n">dlf</span><span class="p">,</span> <span class="n">lfd</span><span class="p">,</span> <span class="n">frd</span><span class="p">,</span> <span class="n">rdf</span><span class="p">,</span> <span class="n">dfr</span><span class="p">,</span> <span class="n">bul</span><span class="p">,</span> <span class="n">ulb</span><span class="p">,</span> <span class="n">lbu</span><span class="p">,</span> <span class="n">bru</span><span class="p">,</span> <span class="n">rub</span><span class="p">,</span> <span class="n">ubr</span><span class="p">,</span> <span class="n">bld</span><span class="p">,</span> <span class="n">ldb</span><span class="p">,</span> <span class="n">dbl</span><span class="p">,</span> <span class="n">bdr</span><span class="p">,</span> <span class="n">drb</span><span class="p">,</span> <span class="n">rbd</span><span class="p">)</span>
+  <span class="mi">0</span>    <span class="mi">1</span>    <span class="mi">2</span>    <span class="mi">3</span>    <span class="mi">4</span>    <span class="mi">5</span>    <span class="mi">6</span>    <span class="mi">7</span>    <span class="mi">8</span>    <span class="mi">9</span>   <span class="mi">10</span>   <span class="mi">11</span>   <span class="mi">12</span>    <span class="mi">13</span>   <span class="mi">14</span>   <span class="mi">15</span>   <span class="mi">16</span>   <span class="mi">17</span>   <span class="mi">18</span>   <span class="mi">19</span>   <span class="mi">20</span>   <span class="mi">21</span>   <span class="mi">22</span>   <span class="mi">23</span>
+</pre></div>
+<p>Трите страни на еден <em>cubelet</em> СЕКОГАШ одат <strong><em>заедно</em></strong>: {<span style="color:green;"><u>0,1,2</u></span>}, {<span style="color:green;"><u>3,4,5</u></span>}, ..., {<span style="color:green;"><u>21,22,23</u></span>}</p>
+<p>Дозволени движења, според текстот, се <strong><em>clockwise</em></strong> и <strong><em>counter-clockwise</em></strong> за $90^{\circ}$ за секоја страна.
+<br></p>
+<p>Коцката има 6 страни (Front, Back, Up, Down, Left, Right), секоја страна има 2 можни акции со што се добиваат 12 акции севкупно. 
+<br></p>
+<p>Доколку фиксирам еден <em>cubelet</em>, односно претпоставам дека тој <em>cubelet</em> секогаш ќе биде на истата позиција, бројот на акции ќе биде двојно помал. Може да се избере било кој <em>cubelet</em> да се фиксира, јас ќе го изберам back-down-right. Сега останати страни се Front, Left и Up, за секоја страна по 2 акции, 6 вкупно.</p>
+<p>Множества од акции:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Front face rotated clockwise.</span>
+<span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="n">fdl</span><span class="p">,</span> <span class="n">dlf</span><span class="p">,</span> <span class="n">lfd</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">luf</span><span class="p">,</span> <span class="n">ufl</span><span class="p">,</span> <span class="n">frd</span><span class="p">,</span> <span class="n">rdf</span><span class="p">,</span> <span class="n">dfr</span><span class="p">,</span> <span class="n">fur</span><span class="p">,</span> <span class="n">urf</span><span class="p">,</span> <span class="n">rfu</span><span class="p">,</span> <span class="n">bul</span><span class="p">,</span> <span class="n">ulb</span><span class="p">,</span> <span class="n">lbu</span><span class="p">,</span> <span class="n">bru</span><span class="p">,</span> <span class="n">rub</span><span class="p">,</span> <span class="n">ubr</span><span class="p">,</span> <span class="n">bld</span><span class="p">,</span> <span class="n">ldb</span><span class="p">,</span> <span class="n">dbl</span><span class="p">,</span> <span class="n">bdr</span><span class="p">,</span> <span class="n">drb</span><span class="p">,</span> <span class="n">rbd</span><span class="p">)</span> 
+<span class="c1"># Left face rotated clockwise.</span>
+<span class="n">L</span> <span class="o">=</span> <span class="p">(</span><span class="n">ulb</span><span class="p">,</span> <span class="n">lbu</span><span class="p">,</span> <span class="n">bul</span><span class="p">,</span> <span class="n">fur</span><span class="p">,</span> <span class="n">urf</span><span class="p">,</span> <span class="n">rfu</span><span class="p">,</span> <span class="n">ufl</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">luf</span><span class="p">,</span> <span class="n">frd</span><span class="p">,</span> <span class="n">rdf</span><span class="p">,</span> <span class="n">dfr</span><span class="p">,</span> <span class="n">dbl</span><span class="p">,</span> <span class="n">bld</span><span class="p">,</span> <span class="n">ldb</span><span class="p">,</span> <span class="n">bru</span><span class="p">,</span> <span class="n">rub</span><span class="p">,</span> <span class="n">ubr</span><span class="p">,</span> <span class="n">dlf</span><span class="p">,</span> <span class="n">lfd</span><span class="p">,</span> <span class="n">fdl</span><span class="p">,</span> <span class="n">bdr</span><span class="p">,</span> <span class="n">drb</span><span class="p">,</span> <span class="n">rbd</span><span class="p">)</span> 
+<span class="c1"># Upper face rotated clockwise.</span>
+<span class="n">U</span> <span class="o">=</span> <span class="p">(</span><span class="n">rfu</span><span class="p">,</span> <span class="n">fur</span><span class="p">,</span> <span class="n">urf</span><span class="p">,</span> <span class="n">rub</span><span class="p">,</span> <span class="n">ubr</span><span class="p">,</span> <span class="n">bru</span><span class="p">,</span> <span class="n">fdl</span><span class="p">,</span> <span class="n">dlf</span><span class="p">,</span> <span class="n">lfd</span><span class="p">,</span> <span class="n">frd</span><span class="p">,</span> <span class="n">rdf</span><span class="p">,</span> <span class="n">dfr</span><span class="p">,</span> <span class="n">luf</span><span class="p">,</span> <span class="n">ufl</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">lbu</span><span class="p">,</span> <span class="n">bul</span><span class="p">,</span> <span class="n">ulb</span><span class="p">,</span> <span class="n">bld</span><span class="p">,</span> <span class="n">ldb</span><span class="p">,</span> <span class="n">dbl</span><span class="p">,</span> <span class="n">bdr</span><span class="p">,</span> <span class="n">drb</span><span class="p">,</span> <span class="n">rbd</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Множествата за <em>counter-clockwise</em> може да се добијат со помош на <u>инверзна пермутација</u>. Пермутација на множество S од различни елементи е подредено разместување на елементите од S, при што секој елемент се јавува само еднаш.</p>
+<blockquote><p>$\pi^{-1}(\pi(i))=i$ за $1≤i≤N$</p>
+</blockquote>
+<p><strong>Зошто пермутации за <em>counter-clockwise</em>?</strong>
+<br>
+Според горенаведената формула, при користење на инверзна пермутација на веќе дадена пермутација, ќе се вратиме во првобитната состојба. Истото важи и за <em>counter-clockwise</em> и <em>clockwise</em>, овие две акции се обратно пропорционални, па затоа доколку искористиме инверзна пермутација на множествата од <em>clockwise</em> ќе ги добиеме множествата за <em>counter-clockwise</em>.
+<br></p>
+<div class="highlight"><pre><span></span><span class="c1">#Front face rotated counter-clockwise.</span>
+<span class="n">Finv</span> <span class="o">=</span> <span class="n">perm_inverse</span><span class="p">(</span><span class="n">F</span><span class="p">)</span> 
+<span class="c1">#Left face rotated counter-clockwise.</span>
+<span class="n">Linv</span> <span class="o">=</span> <span class="n">perm_inverse</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> 
+<span class="c1">#Upper face rotated counter-clockwise.</span>
+<span class="n">Uinv</span> <span class="o">=</span> <span class="n">perm_inverse</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+</pre></div>
+<h4 id="&#1040;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1072;&#1084;">&#1040;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1072;&#1084;<a class="anchor-link" href="#&#1040;&#1083;&#1075;&#1086;&#1088;&#1080;&#1090;&#1072;&#1084;"> </a></h4><p>Како што кажав на почетокот, идејата е графот да се гради имплицитно, тоа ќе се постигне со помош на функција за соседи. Функцијата за соседи треба да ги враќа сите соседи за дадено теме <em>v</em>.
+<br></p>
+<p><em>BFS</em> алгоритмот зависи од растојанието помеѓу почетниот и крајниот јазол. Комплексноста се добива како $О(b^d)$ каде <code> b </code> е <em>branching factor</em>, а <code> d </code> е <em>distance</em>. Во мојот случај <code> b = 6 </code> и <code> d = 14 </code>. Доколку применам класичен <em>bfs</em> на овој проблем, комплексноста ќе биде <strong><em>$O(6^{14})$</em></strong>.
+<br></p>
+<hr>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">rubik</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="s2">&quot;Fi&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">Fi</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">L</span><span class="p">,</span>
+     <span class="s2">&quot;Li&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">Li</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="s2">&quot;Ui&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">Ui</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">shortest_path</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">:</span> <span class="s2">&quot;START&quot;</span><span class="p">}</span>                                  <span class="c1"># Parent</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>                                           <span class="c1"># Queue</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="kc">False</span>                                             <span class="c1"># Flag</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">M</span>
+    <span class="n">Q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">F</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>                      <span class="c1"># Класичен BFS</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>                                <span class="c1"># 6 дозволени акции (F, L, U)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">perm_apply</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>                    <span class="c1"># пермутација на множеството за да може да повикам инверзна перм </span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+                <span class="n">Q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">P</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>                                 <span class="c1"># Најдено е решение</span>
+                <span class="n">F</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="n">F</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>   <span class="c1"># Нема решение</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="k">while</span> <span class="n">P</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;START&quot;</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span>
+
+            <span class="k">if</span> <span class="n">P</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>                            <span class="c1"># F, L, U</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>                                        <span class="c1"># Fi, Li, Ui</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">M</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists_names</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">perm_apply</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">M</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">M</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">M</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#1044;&#1072;&#1083;&#1080;-&#1084;&#1086;&#1078;&#1077;-&#1087;&#1086;&#1076;&#1086;&#1073;&#1088;&#1086;?">&#1044;&#1072;&#1083;&#1080; &#1084;&#1086;&#1078;&#1077; &#1087;&#1086;&#1076;&#1086;&#1073;&#1088;&#1086;?<a class="anchor-link" href="#&#1044;&#1072;&#1083;&#1080;-&#1084;&#1086;&#1078;&#1077;-&#1087;&#1086;&#1076;&#1086;&#1073;&#1088;&#1086;?"> </a></h3><p>Да, може. Доколку искористам <em>2-way-bfs</em>, односно пуштам 2 <em>bfs</em>-а, еден од почеток до средина и еден од крај до средина истовремено, растојанието е двојно помало, а branching factor-от останува ист! Комплексноста на овој алгоритам сега е $O(b^{d/2}+b^{d/2})$, односно за <code> b = 6 </code> и <code> d = 14 </code> се добива $О(2 \cdot 6^7)$ што е многу подобро од класичниот <em>bfs</em>!
+<br></p>
+<blockquote><p><strong>Complexity analysis:</strong><br><em>Класичен bfs:</em> $O(6^{14})$ <br><em>2-way bfs:</em> $O(2\cdot 6^7)$</p>
+</blockquote>
+<table width="100%" style="hover:none"> 
+  <td width="50%">
+    <p align='center'>
+    <img src="images\bfs.gif" style="width:35%;">
+    <br>
+    <center><figcaption><b>Слика 1:</b> Како BFS решава проблем</figcaption></center>
+    </p> 
+  </td>
+
+
+  <td width="50%">
+    <p align='center'>
+    <img src="images\2bfs.gif" style="width:35%;">
+    <br>
+    <center><figcaption><b>Слика 2:</b> Како 2-way-BFS решава проблем</figcaption></center>
+    </p>
+  </td>
+  </table><p>Алгоритмот работи така што на секој чекор ќе го проширувам <em>bfs</em> за едно ниво, и од <u>почетокот</u> и од <u>крајот</u>, и ќе проверувам дали сум нашол ново теме (или темиња) кое е заедничко и за првиот и за вториот <em>bfs</em>. Доколку сум нашол такво теме, ќе му ги зачувам родителите во правилниот редослед.
+<br></p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">rubik</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="s2">&quot;Fi&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">Fi</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">L</span><span class="p">,</span>
+     <span class="s2">&quot;Li&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">Li</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="s2">&quot;Ui&quot;</span><span class="p">:</span> <span class="n">rubik</span><span class="o">.</span><span class="n">Ui</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">shortest_path_optmized</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">P_start</span> <span class="o">=</span> <span class="p">{</span><span class="n">start</span><span class="p">:</span> <span class="s2">&quot;START&quot;</span><span class="p">}</span> <span class="c1"># Parent for BFS from start</span>
+    <span class="n">P_end</span> <span class="o">=</span> <span class="p">{</span><span class="n">end</span><span class="p">:</span> <span class="s2">&quot;END&quot;</span><span class="p">}</span> <span class="c1"># Parent for BFS from end</span>
+    <span class="n">Q_start</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span> <span class="c1"># Queue for BFS from start</span>
+    <span class="n">Q_end</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span> <span class="c1"># Queue for BFS from end</span>
+    <span class="n">middle</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Intersection Point</span>
+    
+    <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">M</span>
+    <span class="n">Q_start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">Q_end</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">Q_start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Q_end</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">middle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x_start</span> <span class="o">=</span> <span class="n">Q_start</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="n">x_end</span> <span class="o">=</span> <span class="n">Q_end</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span> <span class="c1"># BFS from start</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">y_start</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">perm_apply</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x_start</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">y_start</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">P_start</span><span class="p">:</span>
+                <span class="n">Q_start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_start</span><span class="p">)</span>
+                <span class="n">P_start</span><span class="p">[</span><span class="n">y_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+                
+            <span class="k">if</span> <span class="n">y_start</span> <span class="ow">in</span> <span class="n">P_end</span><span class="p">:</span>
+                <span class="n">middle</span> <span class="o">=</span> <span class="n">y_start</span>
+                <span class="k">break</span>
+                
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span> <span class="c1"># BFS from end</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">y_end</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">perm_apply</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x_end</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">y_end</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">P_end</span><span class="p">:</span>
+                <span class="n">Q_end</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_end</span><span class="p">)</span>
+                <span class="n">P_end</span><span class="p">[</span><span class="n">y_end</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+                
+            <span class="k">if</span> <span class="n">y_end</span> <span class="ow">in</span> <span class="n">P_start</span><span class="p">:</span>
+                <span class="n">middle</span> <span class="o">=</span> <span class="n">y_end</span>
+                <span class="k">break</span>
+                
+    <span class="k">if</span> <span class="n">middle</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># Back-Tracking to generate solution</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">z</span> <span class="o">=</span> <span class="n">middle</span>
+        <span class="k">while</span> <span class="n">P_start</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;START&quot;</span> <span class="ow">and</span> <span class="n">P_start</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;END&quot;</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P_start</span><span class="p">[</span><span class="n">z</span><span class="p">]]</span>
+
+            <span class="k">if</span> <span class="n">P_start</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span><span class="c1"># F, L, U</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P_start</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># Fi, Li, Ui</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P_start</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">M</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists_names</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">perm_apply</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+        <span class="n">M</span> <span class="o">=</span> <span class="n">M</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">z</span> <span class="o">=</span> <span class="n">middle</span>
+        <span class="k">while</span> <span class="n">P_end</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;END&quot;</span> <span class="ow">and</span> <span class="n">P_end</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;START&quot;</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">P_end</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># F, L, U</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P_end</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># Fi, Li, Ui</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists</span><span class="p">[</span><span class="n">P_end</span><span class="p">[</span><span class="n">z</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">n</span>
+
+            <span class="n">M</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rubik</span><span class="o">.</span><span class="n">quarter_twists_names</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">rubik</span><span class="o">.</span><span class="n">perm_apply</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">M</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Во следната тетратка ќе ги прикажам излезите/резултатите на двата алгоритми.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    
