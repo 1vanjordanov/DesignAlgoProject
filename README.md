@@ -1,5 +1,4 @@
 # BFS project 
-*** 
 Collection of notebooks for *Design of Algorithms course*.
 
 <br>
